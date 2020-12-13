@@ -12,7 +12,7 @@ import { Step, StepTitle } from './step';
 const BACKEND_URL = import.meta.env.SNOWPACK_PUBLIC_BACKEND_URL || 'http://localhost:3040';
 
 function ReceiverLink({ channelID }) {
-    const linkToReceiverPage = `/recv.html?channelID=${channelID}`;
+    const linkToReceiverPage = `${window.origin}/recv.html?channelID=${channelID}`;
     const dataURL = useMemo(function() {
         const canvas = document.createElement('canvas');
         bwipjs.toCanvas(canvas, {
