@@ -64,7 +64,11 @@ function Send({ channelID, receiverOnline }) {
         </Step>
         <Step>
             <StepTitle><Localized id="header-send-sub-3">3. Send!</Localized></StepTitle>
-            <Localized id="button-send"><button disabled={!receiverOnline} onClick={onSubmit}>Send</button></Localized>
+            <Localized id="button-send">
+                <button disabled={!receiverOnline} onClick={onSubmit} className="p-4 px-12 bg-blue-500 text-white text-center font-bold rounded disabled:bg-red-200">
+                    Send
+                </button>
+            </Localized>
         </Step>
     </>;
 }

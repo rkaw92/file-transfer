@@ -10,5 +10,10 @@ module.exports = {
     fontFamily: {
         heading: [ 'Lato', 'sans-serif' ],
     }
+  },
+  variants: {
+      extend: {
+        backgroundColor: [ 'disabled' ]
+      }
   }
 };
