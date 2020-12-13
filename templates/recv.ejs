@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <script src="/socket.io/socket.io.js"></script>
+    </head>
+    <body>
+        <main>
+            <p>Waiting for files...</p>
+        </main>
+        <script>
+            const channelID = '<%= locals.channelID %>';
+            const socket = io({
+                transports: [ 'websocket' ]
+            });
+            socket.emit('receiverReady', channelID);
+            socket.on('upload', function(uploadID) {
+                const link = document.createElement('a');
+                link.setAttribute('href', `/download/${uploadID}`);
+                link.setAttribute('download', true);
+                link.click();
+            });
+        </script>
+    </body>
+</html>

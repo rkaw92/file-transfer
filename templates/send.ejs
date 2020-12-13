@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <script src="/socket.io/socket.io.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/cuid/1.3.8/browser-cuid.min.js" integrity="sha512-AvtLzKgbVcTZJ0QZ3nLJoTGN2wiE/emjebM9xneyqhtEBRTsNB+8oeQGkOmyOF+gnJd7k3Zvnghs9m6EuTpTEw==" crossorigin="anonymous"></script>
+    </head>
+    <body>
+        <main>
+            <form id="upload">
+                <input type="file" id="file" />
+                <button id="send" disabled>Send!</button>
+            </form>
+            <p>Receive files here: <a id="download">LINK</a></p>
+        </main>
+        <script>
+            const channelID = '<%= locals.channelID %>';
+            document.getElementById('download').setAttribute('href', `/recv?channelID=${channelID}`);
+            
+            const socket = io({
+                transports: [ 'websocket' ]
+            });
+            socket.emit('senderReady', channelID);
+            socket.on('receiverReady', function() {
+                document.getElementById('send').removeAttribute('disabled');
+            });
+
+            document.getElementById('upload').addEventListener('submit', function(uploadEvent) {
+                uploadEvent.preventDefault();
+                const uploadID = cuid();
+                const fileInput = document.getElementById('file');
+                const data = new FormData();
+                data.append('file', fileInput.files[0]);
+                fetch(`/upload/${channelID}/${uploadID}`, {
+                    method: 'POST',
+                    body: data
+                }).then(function() {
+                }, function(error) {
+                    console.log(error);
+                });
+            });
+        </script>
+    </body>
+</html>

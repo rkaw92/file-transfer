@@ -1,0 +1,16 @@
+{
+  "name": "file-transfer",
+  "version": "0.1.0",
+  "description": "an app for transferring files between browsers",
+  "main": "index.js",
+  "author": "Robert Kawecki <robert+public@rkaw.pl>",
+  "license": "MIT",
+  "dependencies": {
+    "cuid": "^2.1.8",
+    "ejs": "^3.1.5",
+    "fastify": "^3.9.1",
+    "fastify-multipart": "^3.3.1",
+    "point-of-view": "^4.7.0",
+    "socket.io": "^3.0.4"
+  }
+}
