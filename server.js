@@ -3,6 +3,10 @@ const app = fastify({ logger: true });
 const stream = require('stream');
 const path = require('path');
 const cuid = require('cuid');
+const fs = require('fs');
+
+// Configure CORS, fall back to Snowpack default:
+const HTTP_ORIGIN = process.env.HTTP_ORIGIN || 'http://localhost:8080';
 
 app.register(require('point-of-view'), {
     engine: {
@@ -15,7 +19,16 @@ app.register(require('point-of-view'), {
     }
 });
 app.register(require('fastify-multipart'));
-const io = require('socket.io')(app.server);
+app.register(require('fastify-cors'), {
+    // Fall back to Snowpack server:
+    origin: HTTP_ORIGIN
+});
+const io = require('socket.io')(app.server, {
+    cors: {
+        origin: HTTP_ORIGIN,
+        methods: [ 'GET', 'POST' ]
+    }
+});
 
 const uploads = new Map();
 
@@ -35,6 +48,10 @@ app.get('/', function(req, reply) {
 
 app.get('/recv', function(req, reply) {
     return reply.view('recv', { channelID: req.query.channelID });
+});
+
+app.get('/style.css', function(req, reply) {
+    return reply.send(fs.createReadStream(path.resolve(__dirname, 'style.css')));
 });
 
 app.register(async function(scope) {
