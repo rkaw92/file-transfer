@@ -5,6 +5,9 @@
   "main": "index.js",
   "author": "Robert Kawecki <robert+public@rkaw.pl>",
   "license": "MIT",
+  "scripts": {
+    "start": "node server.js"
+  },
   "dependencies": {
     "cuid": "^2.1.8",
     "ejs": "^3.1.5",
