@@ -42,18 +42,6 @@ io.on('connection', function(socket) {
     });
 });
 
-app.get('/', function(req, reply) {
-    return reply.view('send', { channelID: cuid() });
-});
-
-app.get('/recv', function(req, reply) {
-    return reply.view('recv', { channelID: req.query.channelID });
-});
-
-app.get('/style.css', function(req, reply) {
-    return reply.send(fs.createReadStream(path.resolve(__dirname, 'style.css')));
-});
-
 app.register(async function(scope) {
     scope.addContentTypeParser('*', function (_request, _payload, done) {
         done();
@@ -89,6 +77,10 @@ app.get('/download/:uploadID', async function(request, reply) {
     reply.header('Content-Disposition', 'attachment; filename=' + upload.filename);
     reply.header('Content-Type', upload.contentType);
     reply.send(upload.stream);
+});
+
+app.register(require('fastify-static'), {
+    root: path.resolve(__dirname, 'build')
 });
 
 app.listen(process.env.HTTP_PORT || 3040, '0.0.0.0');

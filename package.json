@@ -15,14 +15,19 @@
     "fastify": "^3.9.1",
     "fastify-cors": "^5.1.0",
     "fastify-multipart": "^3.3.1",
+    "fastify-static": "^3.3.0",
     "point-of-view": "^4.7.0",
     "socket.io": "^3.0.4"
   },
   "devDependencies": {
+    "@fluent/bundle": "^0.16.0",
+    "@fluent/langneg": "^0.5.0",
+    "@fluent/react": "^0.13.0",
     "bwip-js": "^2.0.11",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
     "snowpack": "^2.18.3",
+    "snowpack-plugin-raw-file-loader": "^1.0.9",
     "socket.io-client": "^3.0.4"
   }
 }
