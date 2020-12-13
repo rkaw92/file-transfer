@@ -74,4 +74,4 @@ app.get('/download/:uploadID', async function(request, reply) {
     reply.send(upload.stream);
 });
 
-app.listen(process.env.HTTP_PORT || 3040);
+app.listen(process.env.HTTP_PORT || 3040, '0.0.0.0');
