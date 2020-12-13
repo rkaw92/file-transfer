@@ -4,6 +4,7 @@ import { useState, useEffect, useCallback, useMemo } from 'react';
 import { render } from 'react-dom';
 import io from 'socket.io-client';
 import { l10n } from './l10n';
+import { Step, StepTitle } from './step';
 
 const BACKEND_URL = import.meta.env.SNOWPACK_PUBLIC_BACKEND_URL || 'http://localhost:3040';
 
@@ -27,10 +28,16 @@ function RecvApp() {
     });
     
     return <LocalizationProvider l10n={l10n}>
-        <Localized id="waiting-for-files">
-            <p>waiting for files</p>
-        </Localized>
+        <header className="container mx-auto text-center text-2xl font-heading font-bold m-2">
+            <Localized id="header-receive"><h1>Receive files</h1></Localized>
+        </header>
+        <main className="container mx-auto">
+            <Step>
+                <StepTitle><Localized id="header-receive-sub-1">Wait for the sender to start</Localized></StepTitle>
+                <Localized id="waiting-for-files"><p>...</p></Localized>
+            </Step>
+        </main>
     </LocalizationProvider>;
 }
 
-render(<RecvApp />, document.querySelector('main'));
+render(<RecvApp />, document.querySelector('body'));
